@@ -1,0 +1,19 @@
+## Sample codes
+
+```yaml
+name: learn-github-actions # Workflow name
+on: [push] # Workflow trigger, in this case any push change
+jobs: # job aggregations tag
+  check-bats-version: # job name
+    runs-on: ubuntu-latest # definition of virtual machine, here ubuntu
+    steps: # steps to be run in this job, every step is an action or script
+      - uses: actions/checkout@v2 # The uses keyword specifies that this step will run v2 of the actions/checkout action. This is an action that checks out your repository onto the runner, allowing you to run scripts or other actions against your code (such as build and test tools). You should use the checkout action any time your workflow will run against the repository's code. 
+      - uses: actions/setup-node@v2 # install node and npm on the runner
+        with:
+          node-version: '14' # specify node version
+      - run: npm install -g bats # install bats package
+      - run: bats -v # run bats command and output
+```
+
+Result:
+![Result](result.png "a title")
