@@ -24,6 +24,7 @@ jobs:
         working-directory: ./notify-failed-pipeline/notify-failed-pipeline-sample
         run: npm run lint
 
+
   notify_failed_pipeline:
     if: failure()
     needs: [linter]

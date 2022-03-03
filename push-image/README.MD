@@ -23,3 +23,6 @@ jobs:
           sudo chmod +x ./scripts/build_push_image.sh &&\
           ./scripts/build_push_image.sh
 ```
+
+
+// dodac push na s3
