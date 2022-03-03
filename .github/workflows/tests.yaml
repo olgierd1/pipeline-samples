@@ -1,8 +1,4 @@
-Workflow to run linter against create react app
-
-
-```yaml
-name: Linter
+name: Tests
 on: [push]
 jobs:
   linter:
@@ -21,10 +17,10 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
           
       - name: Install packages
-        working-directory: ./linter/linter-sample
+        working-directory: ./tests/tests-sample
         run: npm ci
       
-      - name: Run eslint
-        working-directory: ./linter/linter-sample
-        run: npm run lint
-```
+      
+      - name: Run unit tests
+        working-directory: ./tests/tests-sample
+        run: npm run test
