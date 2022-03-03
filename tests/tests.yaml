@@ -1,7 +1,7 @@
 name: Tests
 on: [push]
 jobs:
-  linter:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,10 +17,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
           
       - name: Install packages
-        working-directory: ./tests/tests-sample
         run: npm ci
-      
-      
+
       - name: Run unit tests
-        working-directory: ./tests/tests-sample
         run: npm run test

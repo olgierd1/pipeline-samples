@@ -17,9 +17,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
           
       - name: Install packages
-        working-directory: ./linter/linter-sample
         run: npm ci
       
       - name: Run eslint
-        working-directory: ./linter/linter-sample
         run: npm run lint

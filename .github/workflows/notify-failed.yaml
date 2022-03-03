@@ -1,8 +1,4 @@
-Workflow to run linter against create react app
-
-
-```yaml
-name: Linter
+name: Notify failed pipeline
 on: [push]
 jobs:
   linter:
@@ -21,8 +17,20 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
           
       - name: Install packages
+        working-directory: ./notify-failed-pipeline/notify-failed-pipeline-sample
         run: npm ci
       
       - name: Run eslint
+        working-directory: ./notify-failed-pipeline/notify-failed-pipeline-sample
         run: npm run lint
-```
+
+  notify_failed_pipeline:
+    if: failure()
+    needs: [linter]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+

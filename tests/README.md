@@ -1,11 +1,11 @@
-Workflow to run linter against create react app
+# How to run unit tests in pipeline
 
 
 ```yaml
-name: Linter
+name: Tests
 on: [push]
 jobs:
-  linter:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,6 +23,6 @@ jobs:
       - name: Install packages
         run: npm ci
       
-      - name: Run eslint
-        run: npm run lint
+      - name: Run unit tests
+        run: npm run test
 ```
