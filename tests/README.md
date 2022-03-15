@@ -26,3 +26,6 @@ jobs:
       - name: Run unit tests
         run: npm run test
 ```
+
+# How to use database instance in pipeline:
+https://docs.github.com/en/actions/using-containerized-services
