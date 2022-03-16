@@ -1,20 +1,22 @@
-name: Context testing
-on: push
+name: Push image to registry
 
+on: [push]
 jobs:
-  dump_contexts_to_log:
+  build_push_image:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-      - name: Dump job context
-        run: echo '${{ toJSON(job) }}'
-      - name: Dump steps context
-        run: echo '${{ toJSON(steps) }}'
-      - name: Dump runner context
-        run: echo '${{ toJSON(runner) }}'
-      - name: Dump strategy context
-        run: echo '${{ toJSON(strategy) }}'
-      - name: Dump matrix context
-        run: echo '${{ toJSON(matrix) }}'
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build and push
+        working-directory: ./push-image/push-image-sample
+        env:
+          REGISTRY_NAME: olgierdos/samples
+          APP_NAME: push-image-sample
+          VERSION: ${{ github.sha }}
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          sudo chmod +x ./scripts/build_push_image.sh &&\
+          ./scripts/build_push_image.sh
