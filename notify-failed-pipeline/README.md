@@ -1,3 +1,5 @@
+# How to notify slack channel about failed pipeline:
+```yml
 name: Notify failed pipeline
 on: [push]
 jobs:
@@ -32,4 +34,4 @@ jobs:
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
+```
